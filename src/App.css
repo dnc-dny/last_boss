@@ -36,3 +36,18 @@
     transform: rotate(360deg);
   }
 }
+
+.prefecture-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.prefecture-item {
+  display: flex;
+  align-items: center;
+}
+
+.selected-prefectures {
+  margin-top: 20px;
+}
