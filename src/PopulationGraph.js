@@ -4,7 +4,7 @@ import { Line } from 'react-chartjs-2';
 import { Chart, CategoryScale, LinearScale, LineElement, PointElement, Title, Tooltip, Legend } from 'chart.js';
 Chart.register(CategoryScale, LinearScale, LineElement, PointElement, Title, Tooltip, Legend);
 
-const prefNames = {
+const prefecture_names = {
     1: '北海道',
     2: '青森県',
     3: '岩手県',
@@ -88,7 +88,7 @@ const PopulationGraph = ({ selectedPrefectures }) => {
                     }
                     // データセットに人口データを追加
                     newGraphData.datasets.push({
-                        label: prefNames[prefCode], // 都道府県名をラベルに設定
+                        label: prefecture_names[prefCode], // 都道府県名をラベルに設定
                         data: populationData.data.map(item => item.value),
                         borderColor: `hsl(${Math.random() * 360}, 100%, 50%)`,
                         backgroundColor: `hsla(${Math.random() * 360}, 100%, 50%, 0.5)`,
