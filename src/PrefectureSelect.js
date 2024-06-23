@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const PrefectureSelect = () => {
+const PrefectureSelect = ({ onPrefectureChange }) => {
     const [prefectures, setPrefectures] = useState([]);
-    const [selectedPrefectures, setSelectedPrefectures] = useState([]);
 
     useEffect(() => {
         const fetchPrefectures = async () => {
@@ -22,11 +21,7 @@ const PrefectureSelect = () => {
 
     const handleCheckboxChange = (event) => {
         const { value, checked } = event.target;
-        setSelectedPrefectures(prevSelectedPrefectures =>
-            checked
-                ? [...prevSelectedPrefectures, value]
-                : prevSelectedPrefectures.filter(pref => pref !== value)
-        );
+        onPrefectureChange(parseInt(value, 10), checked);
     };
 
     return (
@@ -37,20 +32,12 @@ const PrefectureSelect = () => {
                         <input
                             type="checkbox"
                             id={`pref-${pref.prefCode}`}
-                            value={pref.prefName}
+                            value={pref.prefCode}
                             onChange={handleCheckboxChange}
                         />
                         <label htmlFor={`pref-${pref.prefCode}`}>{pref.prefName}</label>
                     </div>
                 ))}
-            </div>
-            <div className="selected-prefectures">
-                <h3>選択された都道府県:</h3>
-                <ul>
-                    {selectedPrefectures.map(pref => (
-                        <li key={pref}>{pref}</li>
-                    ))}
-                </ul>
             </div>
         </div>
     );
