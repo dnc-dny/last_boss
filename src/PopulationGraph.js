@@ -13,7 +13,6 @@ const PopulationGraph = ({ selectedPrefectures, prefectureNames }) => {
         const fetchPopulationData = async () => {
             if (selectedPrefectures.length === 0) return;
 
-            const apiKey = 'UoaRyICGToHSOwCaUvGvpzrCp8MdChcBmpnq8QXI';
             let newGraphData = {
                 labels: [],
                 datasets: []
@@ -25,7 +24,7 @@ const PopulationGraph = ({ selectedPrefectures, prefectureNames }) => {
                     const response = await axios.get(
                         `https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?prefCode=${prefCode}`,
                         {
-                            headers: { 'X-API-KEY': apiKey }
+                            headers: { 'X-API-KEY': process.env.REACT_APP_API_KEY }
                         }
                     );
                     // RESAS APIのレスポンスから総人口データを取得

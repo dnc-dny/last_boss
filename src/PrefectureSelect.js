@@ -8,7 +8,7 @@ const PrefectureSelect = ({ onPrefectureChange }) => {
         const fetchPrefectures = async () => {
             try {
                 const response = await axios.get('https://opendata.resas-portal.go.jp/api/v1/prefectures', {
-                    headers: { 'X-API-KEY': 'UoaRyICGToHSOwCaUvGvpzrCp8MdChcBmpnq8QXI' }
+                    headers: { 'X-API-KEY': process.env.REACT_APP_API_KEY }
                 });
                 setPrefectures(response.data.result);
             } catch (error) {
@@ -20,8 +20,9 @@ const PrefectureSelect = ({ onPrefectureChange }) => {
     }, []);
 
     const handleCheckboxChange = (event) => {
-        const { value, checked } = event.target;
-        onPrefectureChange(parseInt(value, 10), checked);
+        const { value, checked, name } = event.target;
+        console.log(`Checkbox ${name} (${value}) is ${checked ? 'checked' : 'unchecked'}`);
+        onPrefectureChange(parseInt(value, 10), checked, name );
     };
 
     return (
@@ -32,6 +33,7 @@ const PrefectureSelect = ({ onPrefectureChange }) => {
                         <input
                             type="checkbox"
                             id={`pref-${pref.prefCode}`}
+                            name={pref.prefName}  // name属性を追加
                             value={pref.prefCode}
                             onChange={handleCheckboxChange}
                         />
